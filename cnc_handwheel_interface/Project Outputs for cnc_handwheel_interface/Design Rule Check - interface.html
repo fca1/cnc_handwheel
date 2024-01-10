@@ -1,0 +1,731 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD20\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">21/11/2023</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">14:33:28</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:02</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc" class="file"><acronym title="C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc">C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">121</td></tr>
+</table>
+</td>
+</table><a name="ID2X2SVSACPRE5ECUWSRETRYQ5IN0G0FCUCPNYR1K12IPNEQHYYMVE"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID0ZFX44WZRF1TFTVSX0NRJ2RSNLXPE1Y31R4G4LEJXZZU033C51ZG">Clearance Constraint (Gap=0.15mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDT5XLGIGSHIKMJ1OVT5VQQ0OOBELF04EHRB0GP1J1Y05U4VRXX0QK">Clearance Constraint (Gap=0.15mm) (InPolygon),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDCSJUELYGA03T4ETB43MILS3ALYZR2XHIBFOV4JXE11TSUD0H0KF">Clearance Constraint (Gap=0.5mm) (InNetClass('manual_solder')),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDHA0LA5SJNCVUIPQOTC2OSRECGEOOKZQLCI4L5PD3ECRRDIRUDCZB">Clearance Constraint (Gap=2.5mm) (InComponent('ANT1')),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDVYKMKVYCS1IDOHJIPKQD0EHECDYUUNRRVYBJUVEYJEROMZRYDL5D">Clearance Constraint (Gap=0.35mm) (InNetClass('RF') and (InNet('GND') or InNet('VCC') or InNet('USB_P') or InNet('USB_N'))),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDR4ROF4HJQM5LNGEUMTJENJLEKPDXTP3FL2CRRKCFDPNTR1NFW1IG">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDIUN2DYBTJ2GLLJ0I1LIBSYRP3ESMNYMUZGW3YEHFDVRUP3B0D21K">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">10</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDVHWEUKOLF1GGDWAJMAM535DY4CNX04A2FN5YGCGOGEZVZRWWW1XM">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDG352FL01TN44NHT1HUZEQIGFWOX5GGLDOOIEXZLNFCRUDYNMWH0H">Width Constraint (Min=0.15mm) (Max=5mm) (Preferred=0.2mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDBHMU05XHBCHOCU1O312NZLSOYEC2JZB1YKEI2COKF4KS3YWJRJHF">Power Plane Connect Rule(Direct Connect )(Expansion=0.175mm) (Conductor Width=0.2mm) (Air Gap=0.2mm) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDAPBHSMNTOO4OEMIHVBDU3ZRKZNEQYVHKI2SHLCYQUFD3UU0JYF">Hole Size Constraint (Min=0.025mm) (Max=10mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDBMWABOM0XLQCP5CBFAS5TQIQ0B0CMZNHACBYGBMBOETI0USA5IKG">Hole To Hole Clearance (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDVH1GA2BYGBBDFBDTBPJDJTPN2D21HFYRQFUM5EJODWJY0B00UAIM">Minimum Solder Mask Sliver (Gap=0.12mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDBB525SW1STEKMW4JKWAQVO3GCGEZC5N5GNNRFLOGVJOXQ1TAMPWF">Silk To Solder Mask (Clearance=0.15mm) (IsPad),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDEJLG1DDCZQV1MSYPQ3IMFKYX4PAR5V5FC2N5BZGPIUNG52FXAJON">Silk to Silk (Clearance=0.254mm) (All),(All)</a></td>
+<td class="column2">2</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDKXD4MX2GKQ4QCI0G51VA0WKETF0M0LD0423VVOCV11B2AHSJWRIL">Net Antennae (Tolerance=0mm) (All)</a></td>
+<td class="column2">8</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDT4SRT4GGERTTL0R0KNXVGMD3OGFP3J30SILWCIMAJELDYP4NL0J">Board Clearance Constraint (Gap=0mm) (All)</a></td>
+<td class="column2">101</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDGBL3YBTIA5EFOZ4WYET2LSTESZKMXEKU0A0FOOAPVEVNRHC5H0D">Room meca (Bounding Region = (139mm, 35mm, 201mm, 46mm) (InComponentClass('meca'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDRI51VREGSHHCDJVN4L1SF00NTOG2GMF15WNFUKO42VWP3EOF5EZ">Room uc (Bounding Region = (139mm, 44mm, 212mm, 59mm) (InComponentClass('uc'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDAFA5FUFILCY3FK3DWAF1GR1SJJXHNVUBJD0ERMGPW42Y335OR1EB">Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">121</td>
+</tr>
+</table><br><a name="IDIUN2DYBTJ2GLLJ0I1LIBSYRP3ESMNYMUZGW3YEHFDVRUP3B0D21K"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Un-Routed Net Constraint ( (All) )</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7795.28mil|Location2.X=8238.192mil|Location1.Y=1929.135mil|Location2.Y=2165.355mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7795.28mil|Location2.X=8238.192mil|Location1.Y=1929.135mil|Location2.Y=2165.355mil|Absolute=True">Un-Routed Net Constraint: Net +3V3 Between Pad SCR1-1(112mm,-16mm) on Multi-Layer And Pad P1-1(119.6mm,-15mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7519.689mil|Location2.X=8238.192mil|Location1.Y=1929.135mil|Location2.Y=2165.355mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7519.689mil|Location2.X=8238.192mil|Location1.Y=1929.135mil|Location2.Y=2165.355mil|Absolute=True">Un-Routed Net Constraint: Net NetP1_2 Between Pad SCR2-1(105mm,-16mm) on Multi-Layer And Pad P1-2(119.6mm,-17mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7244.099mil|Location2.X=8238.192mil|Location1.Y=1903.544mil|Location2.Y=2165.355mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7244.099mil|Location2.X=8238.192mil|Location1.Y=1903.544mil|Location2.Y=2165.355mil|Absolute=True">Un-Routed Net Constraint: Net Wheel1_B Between Pad SCR3-1(98mm,-16mm) on Multi-Layer And Pad P1-3(119.6mm,-19mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6929.138mil|Location2.X=8238.192mil|Location1.Y=1824.804mil|Location2.Y=2165.355mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6929.138mil|Location2.X=8238.192mil|Location1.Y=1824.804mil|Location2.Y=2165.355mil|Absolute=True">Un-Routed Net Constraint: Net Wheel1_A Between Pad SCR4-1(90mm,-16mm) on Multi-Layer And Pad P1-4(119.6mm,-21mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6769.687mil|Location2.X=8031.5mil|Location1.Y=1929.135mil|Location2.Y=2165.355mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6769.687mil|Location2.X=8031.5mil|Location1.Y=1929.135mil|Location2.Y=2165.355mil|Absolute=True">Un-Routed Net Constraint: Net +3V3 Between Pad P2-1(83.6mm,-15mm) on Multi-Layer And Pad SCR1-1(112mm,-16mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6377.957mil|Location2.X=6820.868mil|Location1.Y=1929.135mil|Location2.Y=2165.355mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6377.957mil|Location2.X=6820.868mil|Location1.Y=1929.135mil|Location2.Y=2165.355mil|Absolute=True">Un-Routed Net Constraint: Net +3V3 Between Pad SCR5-1(76mm,-16mm) on Multi-Layer And Pad P2-1(83.6mm,-15mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6769.687mil|Location2.X=7755.909mil|Location1.Y=1929.135mil|Location2.Y=2165.355mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6769.687mil|Location2.X=7755.909mil|Location1.Y=1929.135mil|Location2.Y=2165.355mil|Absolute=True">Un-Routed Net Constraint: Net NetP1_2 Between Pad P2-2(83.6mm,-17mm) on Multi-Layer And Pad SCR2-1(105mm,-16mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6102.366mil|Location2.X=6820.868mil|Location1.Y=1929.135mil|Location2.Y=2165.355mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6102.366mil|Location2.X=6820.868mil|Location1.Y=1929.135mil|Location2.Y=2165.355mil|Absolute=True">Un-Routed Net Constraint: Net NetP1_2 Between Pad SCR6-1(69mm,-16mm) on Multi-Layer And Pad P2-2(83.6mm,-17mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5787.405mil|Location2.X=6820.868mil|Location1.Y=1903.544mil|Location2.Y=2165.355mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5787.405mil|Location2.X=6820.868mil|Location1.Y=1903.544mil|Location2.Y=2165.355mil|Absolute=True">Un-Routed Net Constraint: Net Wheel2_B Between Pad SCR7-1(61mm,-16mm) on Multi-Layer And Pad P2-3(83.6mm,-19mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5511.814mil|Location2.X=6820.868mil|Location1.Y=1824.804mil|Location2.Y=2165.355mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5511.814mil|Location2.X=6820.868mil|Location1.Y=1824.804mil|Location2.Y=2165.355mil|Absolute=True">Un-Routed Net Constraint: Net Wheel2_A Between Pad SCR8-1(54mm,-16mm) on Multi-Layer And Pad P2-4(83.6mm,-21mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDEJLG1DDCZQV1MSYPQ3IMFKYX4PAR5V5FC2N5BZGPIUNG52FXAJON"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk to Silk (Clearance=0.254mm) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6862.489mil|Location2.X=6873.739mil|Location1.Y=1751.608mil|Location2.Y=1762.858mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6862.489mil|Location2.X=6873.739mil|Location1.Y=1751.608mil|Location2.Y=1762.858mil|Absolute=True">Silk To Silk Clearance Constraint: (0.233mm &lt; 0.254mm) Between Text "FID1" (85.149mm,-25.133mm) on Top Overlay And Track (80.55mm,-23.15mm)(85.45mm,-23.15mm) on Top Overlay Silk Text to Silk Clearance [0.233mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6862.489mil|Location2.X=6873.739mil|Location1.Y=1751.608mil|Location2.Y=1762.858mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6862.489mil|Location2.X=6873.739mil|Location1.Y=1751.608mil|Location2.Y=1762.858mil|Absolute=True">Silk To Silk Clearance Constraint: (0.233mm &lt; 0.254mm) Between Text "FID1" (85.149mm,-25.133mm) on Top Overlay And Track (85.45mm,-23.15mm)(85.45mm,-12.85mm) on Top Overlay Silk Text to Silk Clearance [0.233mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDKXD4MX2GKQ4QCI0G51VA0WKETF0M0LD0423VVOCV11B2AHSJWRIL"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Net Antennae (Tolerance=0mm) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6551.622mil|Location2.X=6590.038mil|Location1.Y=1520.123mil|Location2.Y=1578.876mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6551.622mil|Location2.X=6590.038mil|Location1.Y=1520.123mil|Location2.Y=1578.876mil|Absolute=True">Net Antennae: Via (77.8mm,-29mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6579.181mil|Location2.X=6617.597mil|Location1.Y=1579.178mil|Location2.Y=1637.931mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6579.181mil|Location2.X=6617.597mil|Location1.Y=1579.178mil|Location2.Y=1637.931mil|Absolute=True">Net Antennae: Via (78.5mm,-27.5mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6579.181mil|Location2.X=6617.597mil|Location1.Y=1461.068mil|Location2.Y=1519.821mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6579.181mil|Location2.X=6617.597mil|Location1.Y=1461.068mil|Location2.Y=1519.821mil|Absolute=True">Net Antennae: Via (78.5mm,-30.5mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6638.236mil|Location2.X=6676.652mil|Location1.Y=1606.737mil|Location2.Y=1665.49mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6638.236mil|Location2.X=6676.652mil|Location1.Y=1606.737mil|Location2.Y=1665.49mil|Absolute=True">Net Antennae: Via (80mm,-26.8mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6638.236mil|Location2.X=6676.652mil|Location1.Y=1433.509mil|Location2.Y=1492.262mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6638.236mil|Location2.X=6676.652mil|Location1.Y=1433.509mil|Location2.Y=1492.262mil|Absolute=True">Net Antennae: Via (80mm,-31.2mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6697.291mil|Location2.X=6735.707mil|Location1.Y=1579.178mil|Location2.Y=1637.931mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6697.291mil|Location2.X=6735.707mil|Location1.Y=1579.178mil|Location2.Y=1637.931mil|Absolute=True">Net Antennae: Via (81.5mm,-27.5mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6697.291mil|Location2.X=6735.707mil|Location1.Y=1461.068mil|Location2.Y=1519.821mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6697.291mil|Location2.X=6735.707mil|Location1.Y=1461.068mil|Location2.Y=1519.821mil|Absolute=True">Net Antennae: Via (81.5mm,-30.5mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6724.85mil|Location2.X=6763.266mil|Location1.Y=1520.123mil|Location2.Y=1578.876mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6724.85mil|Location2.X=6763.266mil|Location1.Y=1520.123mil|Location2.Y=1578.876mil|Absolute=True">Net Antennae: Via (82.2mm,-29mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDT4SRT4GGERTTL0R0KNXVGMD3OGFP3J30SILWCIMAJELDYP4NL0J"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Board Clearance Constraint (Gap=0mm) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7710.79mil|Location2.X=7722.289mil|Location1.Y=1608.425mil|Location2.Y=1619.923mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7710.79mil|Location2.X=7722.289mil|Location1.Y=1608.425mil|Location2.Y=1619.923mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Arc (107mm,-27mm) on Top Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8297.405mil|Location2.X=8308.903mil|Location1.Y=2080.866mil|Location2.Y=2092.365mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8297.405mil|Location2.X=8308.903mil|Location1.Y=2080.866mil|Location2.Y=2092.365mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Arc (121.9mm,-15mm) on Top Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6880.081mil|Location2.X=6891.58mil|Location1.Y=2080.866mil|Location2.Y=2092.365mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6880.081mil|Location2.X=6891.58mil|Location1.Y=2080.866mil|Location2.Y=2092.365mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Arc (85.9mm,-15mm) on Top Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6884.018mil|Location2.X=6895.517mil|Location1.Y=1608.425mil|Location2.Y=1619.923mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6884.018mil|Location2.X=6895.517mil|Location1.Y=1608.425mil|Location2.Y=1619.923mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Arc (86mm,-27mm) on Top Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7120.239mil|Location2.X=7131.737mil|Location1.Y=1608.425mil|Location2.Y=1619.923mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7120.239mil|Location2.X=7131.737mil|Location1.Y=1608.425mil|Location2.Y=1619.923mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Arc (92mm,-27mm) on Top Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7395.829mil|Location2.X=7407.328mil|Location1.Y=1608.425mil|Location2.Y=1619.923mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7395.829mil|Location2.X=7407.328mil|Location1.Y=1608.425mil|Location2.Y=1619.923mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Arc (99mm,-27mm) on Top Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6884.018mil|Location2.X=6895.517mil|Location1.Y=1608.425mil|Location2.Y=1619.923mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6884.018mil|Location2.X=6895.517mil|Location1.Y=1608.425mil|Location2.Y=1619.923mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Pad FID1-1(86mm,-27mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7120.239mil|Location2.X=7131.737mil|Location1.Y=1608.425mil|Location2.Y=1619.923mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7120.239mil|Location2.X=7131.737mil|Location1.Y=1608.425mil|Location2.Y=1619.923mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Pad FID2-1(92mm,-27mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7395.829mil|Location2.X=7407.328mil|Location1.Y=1608.425mil|Location2.Y=1619.923mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7395.829mil|Location2.X=7407.328mil|Location1.Y=1608.425mil|Location2.Y=1619.923mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Pad FID3-1(99mm,-27mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7710.79mil|Location2.X=7722.289mil|Location1.Y=1608.425mil|Location2.Y=1619.923mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7710.79mil|Location2.X=7722.289mil|Location1.Y=1608.425mil|Location2.Y=1619.923mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Pad FID4-1(107mm,-27mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5978.506mil|Location2.X=5990.005mil|Location1.Y=1529.685mil|Location2.Y=1541.183mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5978.506mil|Location2.X=5990.005mil|Location1.Y=1529.685mil|Location2.Y=1541.183mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Pad H1-1(63mm,-29mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6293.467mil|Location2.X=6304.965mil|Location1.Y=1529.685mil|Location2.Y=1541.183mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6293.467mil|Location2.X=6304.965mil|Location1.Y=1529.685mil|Location2.Y=1541.183mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Pad H2-1(71mm,-29mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6647.798mil|Location2.X=6659.296mil|Location1.Y=1529.685mil|Location2.Y=1541.183mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6647.798mil|Location2.X=6659.296mil|Location1.Y=1529.685mil|Location2.Y=1541.183mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Pad H3-1(80mm,-29mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5624.175mil|Location2.X=5635.674mil|Location1.Y=1529.685mil|Location2.Y=1541.183mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5624.175mil|Location2.X=5635.674mil|Location1.Y=1529.685mil|Location2.Y=1541.183mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Pad H4-1(54mm,-29mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8206.852mil|Location2.X=8218.351mil|Location1.Y=2080.866mil|Location2.Y=2092.365mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8206.852mil|Location2.X=8218.351mil|Location1.Y=2080.866mil|Location2.Y=2092.365mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Pad P1-1(119.6mm,-15mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8206.852mil|Location2.X=8218.351mil|Location1.Y=2002.126mil|Location2.Y=2013.624mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8206.852mil|Location2.X=8218.351mil|Location1.Y=2002.126mil|Location2.Y=2013.624mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Pad P1-2(119.6mm,-17mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8206.852mil|Location2.X=8218.351mil|Location1.Y=1923.386mil|Location2.Y=1934.884mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8206.852mil|Location2.X=8218.351mil|Location1.Y=1923.386mil|Location2.Y=1934.884mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Pad P1-3(119.6mm,-19mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8206.852mil|Location2.X=8218.351mil|Location1.Y=1844.646mil|Location2.Y=1856.144mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8206.852mil|Location2.X=8218.351mil|Location1.Y=1844.646mil|Location2.Y=1856.144mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Pad P1-4(119.6mm,-21mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6789.528mil|Location2.X=6801.027mil|Location1.Y=2080.866mil|Location2.Y=2092.365mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6789.528mil|Location2.X=6801.027mil|Location1.Y=2080.866mil|Location2.Y=2092.365mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Pad P2-1(83.6mm,-15mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6789.528mil|Location2.X=6801.027mil|Location1.Y=2002.126mil|Location2.Y=2013.624mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6789.528mil|Location2.X=6801.027mil|Location1.Y=2002.126mil|Location2.Y=2013.624mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Pad P2-2(83.6mm,-17mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6789.528mil|Location2.X=6801.027mil|Location1.Y=1923.386mil|Location2.Y=1934.884mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6789.528mil|Location2.X=6801.027mil|Location1.Y=1923.386mil|Location2.Y=1934.884mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Pad P2-3(83.6mm,-19mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6789.528mil|Location2.X=6801.027mil|Location1.Y=1844.646mil|Location2.Y=1856.144mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6789.528mil|Location2.X=6801.027mil|Location1.Y=1844.646mil|Location2.Y=1856.144mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Pad P2-4(83.6mm,-21mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7907.641mil|Location2.X=7919.139mil|Location1.Y=2041.496mil|Location2.Y=2052.994mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7907.641mil|Location2.X=7919.139mil|Location1.Y=2041.496mil|Location2.Y=2052.994mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Pad SCR1-1(112mm,-16mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7632.05mil|Location2.X=7643.549mil|Location1.Y=2041.496mil|Location2.Y=2052.994mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7632.05mil|Location2.X=7643.549mil|Location1.Y=2041.496mil|Location2.Y=2052.994mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Pad SCR2-1(105mm,-16mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7356.459mil|Location2.X=7367.958mil|Location1.Y=2041.496mil|Location2.Y=2052.994mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7356.459mil|Location2.X=7367.958mil|Location1.Y=2041.496mil|Location2.Y=2052.994mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Pad SCR3-1(98mm,-16mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7041.499mil|Location2.X=7052.997mil|Location1.Y=2041.496mil|Location2.Y=2052.994mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7041.499mil|Location2.X=7052.997mil|Location1.Y=2041.496mil|Location2.Y=2052.994mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Pad SCR4-1(90mm,-16mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6490.317mil|Location2.X=6501.816mil|Location1.Y=2041.496mil|Location2.Y=2052.994mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6490.317mil|Location2.X=6501.816mil|Location1.Y=2041.496mil|Location2.Y=2052.994mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Pad SCR5-1(76mm,-16mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6214.726mil|Location2.X=6226.225mil|Location1.Y=2041.496mil|Location2.Y=2052.994mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6214.726mil|Location2.X=6226.225mil|Location1.Y=2041.496mil|Location2.Y=2052.994mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Pad SCR6-1(69mm,-16mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5899.766mil|Location2.X=5911.264mil|Location1.Y=2041.496mil|Location2.Y=2052.994mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5899.766mil|Location2.X=5911.264mil|Location1.Y=2041.496mil|Location2.Y=2052.994mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Pad SCR7-1(61mm,-16mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5624.175mil|Location2.X=5635.674mil|Location1.Y=2041.496mil|Location2.Y=2052.994mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5624.175mil|Location2.X=5635.674mil|Location1.Y=2041.496mil|Location2.Y=2052.994mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Pad SCR8-1(54mm,-16mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6945.487mil|Location2.X=6956.986mil|Location1.Y=1711.915mil|Location2.Y=1723.414mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6945.487mil|Location2.X=6956.986mil|Location1.Y=1711.915mil|Location2.Y=1723.414mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Text "FID1" (85.149mm,-25.133mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7191.705mil|Location2.X=7203.203mil|Location1.Y=1711.915mil|Location2.Y=1723.414mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7191.705mil|Location2.X=7203.203mil|Location1.Y=1711.915mil|Location2.Y=1723.414mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Text "FID2" (91.149mm,-25.133mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7467.296mil|Location2.X=7478.794mil|Location1.Y=1711.915mil|Location2.Y=1723.414mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7467.296mil|Location2.X=7478.794mil|Location1.Y=1711.915mil|Location2.Y=1723.414mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Text "FID3" (98.149mm,-25.133mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7782.256mil|Location2.X=7793.755mil|Location1.Y=1711.915mil|Location2.Y=1723.414mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7782.256mil|Location2.X=7793.755mil|Location1.Y=1711.915mil|Location2.Y=1723.414mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Text "FID4" (106.149mm,-25.133mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5886.993mil|Location2.X=5898.492mil|Location1.Y=1731.175mil|Location2.Y=1742.674mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5886.993mil|Location2.X=5898.492mil|Location1.Y=1731.175mil|Location2.Y=1742.674mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Text "H1" (59.66mm,-24.644mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6211.95mil|Location2.X=6223.449mil|Location1.Y=1731.175mil|Location2.Y=1742.674mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6211.95mil|Location2.X=6223.449mil|Location1.Y=1731.175mil|Location2.Y=1742.674mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Text "H2" (67.66mm,-24.644mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6566.281mil|Location2.X=6577.78mil|Location1.Y=1731.175mil|Location2.Y=1742.674mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6566.281mil|Location2.X=6577.78mil|Location1.Y=1731.175mil|Location2.Y=1742.674mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Text "H3" (76.66mm,-24.644mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5542.659mil|Location2.X=5554.157mil|Location1.Y=1731.175mil|Location2.Y=1742.674mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5542.659mil|Location2.X=5554.157mil|Location1.Y=1731.175mil|Location2.Y=1742.674mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Text "H4" (50.66mm,-24.644mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8127.718mil|Location2.X=8139.217mil|Location1.Y=2234.246mil|Location2.Y=2245.745mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8127.718mil|Location2.X=8139.217mil|Location1.Y=2234.246mil|Location2.Y=2245.745mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Text "P1" (116.574mm,-11.866mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6720.392mil|Location2.X=6731.89mil|Location1.Y=2234.246mil|Location2.Y=2245.745mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6720.392mil|Location2.X=6731.89mil|Location1.Y=2234.246mil|Location2.Y=2245.745mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Text "P2" (80.574mm,-11.866mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7899.108mil|Location2.X=7910.607mil|Location1.Y=2219.986mil|Location2.Y=2231.485mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7899.108mil|Location2.X=7910.607mil|Location1.Y=2219.986mil|Location2.Y=2231.485mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Text "SCR1" (109.244mm,-12.228mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7633.515mil|Location2.X=7645.013mil|Location1.Y=2219.986mil|Location2.Y=2231.485mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7633.515mil|Location2.X=7645.013mil|Location1.Y=2219.986mil|Location2.Y=2231.485mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Text "SCR2" (102.244mm,-12.228mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7357.924mil|Location2.X=7369.422mil|Location1.Y=2219.986mil|Location2.Y=2231.485mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7357.924mil|Location2.X=7369.422mil|Location1.Y=2219.986mil|Location2.Y=2231.485mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Text "SCR3" (95.244mm,-12.228mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7042.963mil|Location2.X=7054.462mil|Location1.Y=2219.986mil|Location2.Y=2231.485mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7042.963mil|Location2.X=7054.462mil|Location1.Y=2219.986mil|Location2.Y=2231.485mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Text "SCR4" (87.244mm,-12.228mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6491.782mil|Location2.X=6503.28mil|Location1.Y=2219.986mil|Location2.Y=2231.485mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6491.782mil|Location2.X=6503.28mil|Location1.Y=2219.986mil|Location2.Y=2231.485mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Text "SCR5" (73.244mm,-12.228mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6216.191mil|Location2.X=6227.69mil|Location1.Y=2219.986mil|Location2.Y=2231.485mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6216.191mil|Location2.X=6227.69mil|Location1.Y=2219.986mil|Location2.Y=2231.485mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Text "SCR6" (66.244mm,-12.228mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5901.23mil|Location2.X=5912.729mil|Location1.Y=2219.986mil|Location2.Y=2231.485mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5901.23mil|Location2.X=5912.729mil|Location1.Y=2219.986mil|Location2.Y=2231.485mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Text "SCR7" (58.244mm,-12.228mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5625.639mil|Location2.X=5637.138mil|Location1.Y=2219.986mil|Location2.Y=2231.485mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5625.639mil|Location2.X=5637.138mil|Location1.Y=2219.986mil|Location2.Y=2231.485mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Text "SCR8" (51.244mm,-12.228mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3498.188mil|Location2.X=3509.686mil|Location1.Y=2927.322mil|Location2.Y=2938.82mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3498.188mil|Location2.X=3509.686mil|Location1.Y=2927.322mil|Location2.Y=2938.82mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Track (0mm,0mm)(0mm,13mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3616.298mil|Location2.X=3627.796mil|Location1.Y=2671.416mil|Location2.Y=2682.915mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3616.298mil|Location2.X=3627.796mil|Location1.Y=2671.416mil|Location2.Y=2682.915mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Track (0mm,0mm)(6mm,0mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3494.998mil|Location2.X=3506.496mil|Location1.Y=3184.932mil|Location2.Y=3196.431mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3494.998mil|Location2.X=3506.496mil|Location1.Y=3184.932mil|Location2.Y=3196.431mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Track (0mm,13mm)(10.6mm,25mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8183.231mil|Location2.X=8194.73mil|Location1.Y=2165.512mil|Location2.Y=2177.01mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8183.231mil|Location2.X=8194.73mil|Location1.Y=2165.512mil|Location2.Y=2177.01mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Track (116.55mm,-12.85mm)(121.45mm,-12.85mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8086.775mil|Location2.X=8098.273mil|Location1.Y=1962.756mil|Location2.Y=1974.254mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8086.775mil|Location2.X=8098.273mil|Location1.Y=1962.756mil|Location2.Y=1974.254mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Track (116.55mm,-23.15mm)(116.55mm,-12.85mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8183.231mil|Location2.X=8194.73mil|Location1.Y=1760mil|Location2.Y=1771.498mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8183.231mil|Location2.X=8194.73mil|Location1.Y=1760mil|Location2.Y=1771.498mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Track (116.55mm,-23.15mm)(121.45mm,-23.15mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8279.688mil|Location2.X=8291.187mil|Location1.Y=1962.756mil|Location2.Y=1974.254mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8279.688mil|Location2.X=8291.187mil|Location1.Y=1962.756mil|Location2.Y=1974.254mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Track (121.45mm,-23.15mm)(121.45mm,-12.85mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4065.117mil|Location2.X=4076.615mil|Location1.Y=2668.22mil|Location2.Y=2679.718mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4065.117mil|Location2.X=4076.615mil|Location1.Y=2668.22mil|Location2.Y=2679.718mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Track (14.4mm,0mm)(14.4mm,13mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4159.605mil|Location2.X=4171.104mil|Location1.Y=2668.22mil|Location2.Y=2679.718mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4159.605mil|Location2.X=4171.104mil|Location1.Y=2668.22mil|Location2.Y=2679.718mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Track (16.8mm,0mm)(16.8mm,13mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4277.715mil|Location2.X=4289.214mil|Location1.Y=2668.22mil|Location2.Y=2679.718mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4277.715mil|Location2.X=4289.214mil|Location1.Y=2668.22mil|Location2.Y=2679.718mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Track (16.8mm,0mm)(22.8mm,0mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4395.826mil|Location2.X=4407.324mil|Location1.Y=2668.22mil|Location2.Y=2679.718mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4395.826mil|Location2.X=4407.324mil|Location1.Y=2668.22mil|Location2.Y=2679.718mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Track (22.8mm,0mm)(22.8mm,13mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4490.314mil|Location2.X=4501.812mil|Location1.Y=2668.22mil|Location2.Y=2679.718mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4490.314mil|Location2.X=4501.812mil|Location1.Y=2668.22mil|Location2.Y=2679.718mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Track (25.2mm,0mm)(25.2mm,13mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4608.424mil|Location2.X=4619.923mil|Location1.Y=2668.22mil|Location2.Y=2679.718mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4608.424mil|Location2.X=4619.923mil|Location1.Y=2668.22mil|Location2.Y=2679.718mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Track (25.2mm,0mm)(31.2mm,0mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4726.534mil|Location2.X=4738.033mil|Location1.Y=2668.22mil|Location2.Y=2679.718mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4726.534mil|Location2.X=4738.033mil|Location1.Y=2668.22mil|Location2.Y=2679.718mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Track (31.2mm,0mm)(31.2mm,13mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3734.408mil|Location2.X=3745.907mil|Location1.Y=2668.22mil|Location2.Y=2679.718mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3734.408mil|Location2.X=3745.907mil|Location1.Y=2668.22mil|Location2.Y=2679.718mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Track (6mm,0mm)(6mm,13mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3947.007mil|Location2.X=3958.505mil|Location1.Y=2668.22mil|Location2.Y=2679.718mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3947.007mil|Location2.X=3958.505mil|Location1.Y=2668.22mil|Location2.Y=2679.718mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Track (8.4mm,0mm)(14.4mm,0mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3828.896mil|Location2.X=3840.395mil|Location1.Y=2668.22mil|Location2.Y=2679.718mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3828.896mil|Location2.X=3840.395mil|Location1.Y=2668.22mil|Location2.Y=2679.718mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Track (8.4mm,0mm)(8.4mm,13mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6765.908mil|Location2.X=6777.407mil|Location1.Y=2165.512mil|Location2.Y=2177.01mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6765.908mil|Location2.X=6777.407mil|Location1.Y=2165.512mil|Location2.Y=2177.01mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Track (80.55mm,-12.85mm)(85.45mm,-12.85mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6669.451mil|Location2.X=6680.95mil|Location1.Y=1962.756mil|Location2.Y=1974.254mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6669.451mil|Location2.X=6680.95mil|Location1.Y=1962.756mil|Location2.Y=1974.254mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Track (80.55mm,-23.15mm)(80.55mm,-12.85mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6765.908mil|Location2.X=6777.407mil|Location1.Y=1760mil|Location2.Y=1771.498mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6765.908mil|Location2.X=6777.407mil|Location1.Y=1760mil|Location2.Y=1771.498mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Track (80.55mm,-23.15mm)(85.45mm,-23.15mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6862.365mil|Location2.X=6873.863mil|Location1.Y=1962.756mil|Location2.Y=1974.254mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6862.365mil|Location2.X=6873.863mil|Location1.Y=1962.756mil|Location2.Y=1974.254mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Track (85.45mm,-23.15mm)(85.45mm,-12.85mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5537.561mil|Location2.X=5549.059mil|Location1.Y=1529.685mil|Location2.Y=1541.183mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5537.561mil|Location2.X=5549.059mil|Location1.Y=1529.685mil|Location2.Y=1541.183mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (51.8mm,-29mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5565.12mil|Location2.X=5576.618mil|Location1.Y=1588.74mil|Location2.Y=1600.238mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5565.12mil|Location2.X=5576.618mil|Location1.Y=1588.74mil|Location2.Y=1600.238mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (52.5mm,-27.5mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5565.12mil|Location2.X=5576.618mil|Location1.Y=1470.63mil|Location2.Y=1482.128mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5565.12mil|Location2.X=5576.618mil|Location1.Y=1470.63mil|Location2.Y=1482.128mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (52.5mm,-30.5mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5624.175mil|Location2.X=5635.674mil|Location1.Y=1616.299mil|Location2.Y=1627.797mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5624.175mil|Location2.X=5635.674mil|Location1.Y=1616.299mil|Location2.Y=1627.797mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (54mm,-26.8mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5624.175mil|Location2.X=5635.674mil|Location1.Y=1443.07mil|Location2.Y=1454.569mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5624.175mil|Location2.X=5635.674mil|Location1.Y=1443.07mil|Location2.Y=1454.569mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (54mm,-31.2mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5683.23mil|Location2.X=5694.729mil|Location1.Y=1588.74mil|Location2.Y=1600.238mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5683.23mil|Location2.X=5694.729mil|Location1.Y=1588.74mil|Location2.Y=1600.238mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (55.5mm,-27.5mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5683.23mil|Location2.X=5694.729mil|Location1.Y=1470.63mil|Location2.Y=1482.128mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5683.23mil|Location2.X=5694.729mil|Location1.Y=1470.63mil|Location2.Y=1482.128mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (55.5mm,-30.5mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5710.789mil|Location2.X=5722.288mil|Location1.Y=1529.685mil|Location2.Y=1541.183mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5710.789mil|Location2.X=5722.288mil|Location1.Y=1529.685mil|Location2.Y=1541.183mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (56.2mm,-29mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5891.892mil|Location2.X=5903.39mil|Location1.Y=1529.685mil|Location2.Y=1541.183mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5891.892mil|Location2.X=5903.39mil|Location1.Y=1529.685mil|Location2.Y=1541.183mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (60.8mm,-29mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5919.451mil|Location2.X=5930.949mil|Location1.Y=1588.74mil|Location2.Y=1600.238mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5919.451mil|Location2.X=5930.949mil|Location1.Y=1588.74mil|Location2.Y=1600.238mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (61.5mm,-27.5mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5919.451mil|Location2.X=5930.949mil|Location1.Y=1470.63mil|Location2.Y=1482.128mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5919.451mil|Location2.X=5930.949mil|Location1.Y=1470.63mil|Location2.Y=1482.128mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (61.5mm,-30.5mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5978.506mil|Location2.X=5990.005mil|Location1.Y=1616.299mil|Location2.Y=1627.797mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5978.506mil|Location2.X=5990.005mil|Location1.Y=1616.299mil|Location2.Y=1627.797mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (63mm,-26.8mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5978.506mil|Location2.X=5990.005mil|Location1.Y=1443.07mil|Location2.Y=1454.569mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5978.506mil|Location2.X=5990.005mil|Location1.Y=1443.07mil|Location2.Y=1454.569mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (63mm,-31.2mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6037.561mil|Location2.X=6049.06mil|Location1.Y=1588.74mil|Location2.Y=1600.238mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6037.561mil|Location2.X=6049.06mil|Location1.Y=1588.74mil|Location2.Y=1600.238mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (64.5mm,-27.5mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6037.561mil|Location2.X=6049.06mil|Location1.Y=1470.63mil|Location2.Y=1482.128mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6037.561mil|Location2.X=6049.06mil|Location1.Y=1470.63mil|Location2.Y=1482.128mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (64.5mm,-30.5mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6065.12mil|Location2.X=6076.619mil|Location1.Y=1529.685mil|Location2.Y=1541.183mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6065.12mil|Location2.X=6076.619mil|Location1.Y=1529.685mil|Location2.Y=1541.183mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (65.2mm,-29mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6206.852mil|Location2.X=6218.351mil|Location1.Y=1529.685mil|Location2.Y=1541.183mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6206.852mil|Location2.X=6218.351mil|Location1.Y=1529.685mil|Location2.Y=1541.183mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (68.8mm,-29mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6234.412mil|Location2.X=6245.91mil|Location1.Y=1588.74mil|Location2.Y=1600.238mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6234.412mil|Location2.X=6245.91mil|Location1.Y=1588.74mil|Location2.Y=1600.238mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (69.5mm,-27.5mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6234.412mil|Location2.X=6245.91mil|Location1.Y=1470.63mil|Location2.Y=1482.128mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6234.412mil|Location2.X=6245.91mil|Location1.Y=1470.63mil|Location2.Y=1482.128mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (69.5mm,-30.5mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6293.467mil|Location2.X=6304.965mil|Location1.Y=1616.299mil|Location2.Y=1627.797mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6293.467mil|Location2.X=6304.965mil|Location1.Y=1616.299mil|Location2.Y=1627.797mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (71mm,-26.8mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6293.467mil|Location2.X=6304.965mil|Location1.Y=1443.07mil|Location2.Y=1454.569mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6293.467mil|Location2.X=6304.965mil|Location1.Y=1443.07mil|Location2.Y=1454.569mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (71mm,-31.2mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6352.522mil|Location2.X=6364.02mil|Location1.Y=1588.74mil|Location2.Y=1600.238mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6352.522mil|Location2.X=6364.02mil|Location1.Y=1588.74mil|Location2.Y=1600.238mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (72.5mm,-27.5mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6352.522mil|Location2.X=6364.02mil|Location1.Y=1470.63mil|Location2.Y=1482.128mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6352.522mil|Location2.X=6364.02mil|Location1.Y=1470.63mil|Location2.Y=1482.128mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (72.5mm,-30.5mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6380.081mil|Location2.X=6391.579mil|Location1.Y=1529.685mil|Location2.Y=1541.183mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6380.081mil|Location2.X=6391.579mil|Location1.Y=1529.685mil|Location2.Y=1541.183mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (73.2mm,-29mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6561.183mil|Location2.X=6572.682mil|Location1.Y=1529.685mil|Location2.Y=1541.183mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6561.183mil|Location2.X=6572.682mil|Location1.Y=1529.685mil|Location2.Y=1541.183mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (77.8mm,-29mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6588.743mil|Location2.X=6600.241mil|Location1.Y=1588.74mil|Location2.Y=1600.238mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6588.743mil|Location2.X=6600.241mil|Location1.Y=1588.74mil|Location2.Y=1600.238mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (78.5mm,-27.5mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6588.743mil|Location2.X=6600.241mil|Location1.Y=1470.63mil|Location2.Y=1482.128mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6588.743mil|Location2.X=6600.241mil|Location1.Y=1470.63mil|Location2.Y=1482.128mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (78.5mm,-30.5mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6647.798mil|Location2.X=6659.296mil|Location1.Y=1616.299mil|Location2.Y=1627.797mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6647.798mil|Location2.X=6659.296mil|Location1.Y=1616.299mil|Location2.Y=1627.797mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (80mm,-26.8mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6647.798mil|Location2.X=6659.296mil|Location1.Y=1443.07mil|Location2.Y=1454.569mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6647.798mil|Location2.X=6659.296mil|Location1.Y=1443.07mil|Location2.Y=1454.569mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (80mm,-31.2mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6706.853mil|Location2.X=6718.351mil|Location1.Y=1588.74mil|Location2.Y=1600.238mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6706.853mil|Location2.X=6718.351mil|Location1.Y=1588.74mil|Location2.Y=1600.238mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (81.5mm,-27.5mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6706.853mil|Location2.X=6718.351mil|Location1.Y=1470.63mil|Location2.Y=1482.128mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6706.853mil|Location2.X=6718.351mil|Location1.Y=1470.63mil|Location2.Y=1482.128mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (81.5mm,-30.5mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6734.412mil|Location2.X=6745.91mil|Location1.Y=1529.685mil|Location2.Y=1541.183mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Dropbox\EPI_ENO_SHARED\epi_internal\cnchandwheel\electronique\altium\cnc_handwheel_interface\interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6734.412mil|Location2.X=6745.91mil|Location1.Y=1529.685mil|Location2.Y=1541.183mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.4mm) Between Board Edge And Via (82.2mm,-29mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>
